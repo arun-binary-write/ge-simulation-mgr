@@ -9,7 +9,22 @@ namespace SimulationManager.Service
     [DataContract]
     public class Experiment
     {
+       [DataMember]
         public string ProjectId
+        {
+            get;
+            set;
+        }
+
+        [DataMember]
+        public string ExperimentId
+        {
+            get;
+            set;
+        }
+
+        [DataMember]
+        public string RepeatCount
         {
             get;
             set;

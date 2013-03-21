@@ -12,36 +12,13 @@ namespace SimulationManager.Service
     [ServiceContract]
     public interface ISimulationService
     {
+        [OperationContract]
+        [WebInvoke(Method="POST",UriTemplate="/{projectId}/{repeatCount}/{experimentId}")]
+        string RunExperiment(string projectId, string repeatCount, string experimentId);
 
         [OperationContract]
-        string GetData(int value);
-
-        [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
-
-        // TODO: Add your service operations here
+        [WebInvoke(Method = "GET", UriTemplate = "/{workerId}/{status}")]
+        Experiment GetWork(string workerId, string status);
     }
-
-
-    // Use a data contract as illustrated in the sample below to add composite types to service operations.
-    [DataContract]
-    public class CompositeType
-    {
-        bool boolValue = true;
-        string stringValue = "Hello ";
-
-        [DataMember]
-        public bool BoolValue
-        {
-            get { return boolValue; }
-            set { boolValue = value; }
-        }
-
-        [DataMember]
-        public string StringValue
-        {
-            get { return stringValue; }
-            set { stringValue = value; }
-        }
-    }
+  
 }
