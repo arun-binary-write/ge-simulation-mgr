@@ -18,4 +18,12 @@
       <LocalStorage name="SimulationManager.Service.svclog" sizeInMB="1000" cleanOnRoleRecycle="false" />
     </LocalResources>
   </WebRole>
+  <WorkerRole name="SimulationManager.Worker" vmsize="Small">
+    <Imports>
+      <Import moduleName="Diagnostics" />
+    </Imports>
+    <ConfigurationSettings>
+      <Setting name="queueconnectionstring" />
+    </ConfigurationSettings>
+  </WorkerRole>
 </ServiceDefinition>

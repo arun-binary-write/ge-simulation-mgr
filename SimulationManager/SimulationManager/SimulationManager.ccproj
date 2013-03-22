@@ -45,6 +45,14 @@
       <RoleName>SimulationManager.Service</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
+    <ProjectReference Include="..\SimulationManager.Worker\SimulationManager.Worker.csproj">
+      <Name>SimulationManager.Worker</Name>
+      <Project>{55a469e0-8c4a-4b03-98fa-81e6ec69334f}</Project>
+      <Private>True</Private>
+      <RoleType>Worker</RoleType>
+      <RoleName>SimulationManager.Worker</RoleName>
+      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+    </ProjectReference>
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>

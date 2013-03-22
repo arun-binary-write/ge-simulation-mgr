@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<rules xmlns="http://schemas.microsoft.com/practices/2011/entlib/autoscaling/rules">
+	<reactiveRules>
+		<rule name="add worker role instance" rank="1" enabled="true">
+			<when>
+				<greater than="10" operand ="poolqueue" />
+			</when>
+		</rule>
+	</reactiveRules>
+	<operands>
+		<queueLength aggregate="Growth" alias="poolqueue" queue="poolqueue" timespan="00:00:05" />
+	</operands>
+</rules>

@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="SimulationManager.Service.ISimulationService" CodeBehind="SimulationService.svc.cs" %>

@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimulationManager.WorkerMan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimulationManager.Data", "SimulationManager.Data\SimulationManager.Data.csproj", "{5FE01576-FBA2-4A19-9601-0F3A64A24DDC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimulationManager.Worker", "SimulationManager.Worker\SimulationManager.Worker.csproj", "{55A469E0-8C4A-4B03-98FA-81E6EC69334F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueueLoader", "QueueLoader\QueueLoader.csproj", "{E3D0A54C-92CC-4815-8C7A-7FD6B7B0CAB3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +35,14 @@ Global
 		{5FE01576-FBA2-4A19-9601-0F3A64A24DDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FE01576-FBA2-4A19-9601-0F3A64A24DDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FE01576-FBA2-4A19-9601-0F3A64A24DDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55A469E0-8C4A-4B03-98FA-81E6EC69334F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55A469E0-8C4A-4B03-98FA-81E6EC69334F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55A469E0-8C4A-4B03-98FA-81E6EC69334F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55A469E0-8C4A-4B03-98FA-81E6EC69334F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3D0A54C-92CC-4815-8C7A-7FD6B7B0CAB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3D0A54C-92CC-4815-8C7A-7FD6B7B0CAB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3D0A54C-92CC-4815-8C7A-7FD6B7B0CAB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3D0A54C-92CC-4815-8C7A-7FD6B7B0CAB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

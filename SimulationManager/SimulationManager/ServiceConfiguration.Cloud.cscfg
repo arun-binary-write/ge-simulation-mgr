@@ -6,4 +6,11 @@
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
     </ConfigurationSettings>
   </Role>
+  <Role name="SimulationManager.Worker">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="queueconnectionstring" value="DefaultEndpointsProtocol=https;AccountName=gesimmanager;AccountKey=JbZJwq8akqXrgoyKAkwcMUYi9GKcs//QEr5HM0QXlLhAs3aknIUWr53PnAchwmrjpmQCCRq6nHEphVKf/tgY0Q==" />
+    </ConfigurationSettings>
+  </Role>
 </ServiceConfiguration>

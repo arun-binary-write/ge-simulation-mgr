@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<serviceModel xmlns="http://schemas.microsoft.com/practices/2011/entlib/autoscaling/serviceModel">
+	<subscriptions>
+		<subscription name="Azdem155F90419I"
+					  subscriptionId="788d90bb-b1d5-44eb-a335-aa8569d69bc6"
+					  certificateThumbprint="05E1CA7DAE8B832BFAA9C008F112F28661DC4597"
+					   certificateStoreLocation="CurrentUser"
+					   certificateStoreName="My">
+			<services>
+				<service notificationRecipients="arunprasadn@aditi.com" dnsPrefix="gemockservice" slot="Production" scalingMode="Scale" >
+					<roles>
+						<role alias="MockService.Worker"
+						  roleName="MockService.Worker"
+						  wadStorageAccountName="gesimmanager"/>
+					</roles>
+				</service>
+			</services>
+			<storageAccounts>
+				<storageAccount alias="gesimmanager"
+								connectionString="DefaultEndpointsProtocol=https;AccountName=gesimmanager;AccountKey=JbZJwq8akqXrgoyKAkwcMUYi9GKcs//QEr5HM0QXlLhAs3aknIUWr53PnAchwmrjpmQCCRq6nHEphVKf/tgY0Q==">
+					<queues>
+						<queue alias="poolqueue" queueName="poolqueue"/>
+					</queues>
+				</storageAccount>
+			</storageAccounts>
+		</subscription>
+	</subscriptions>
+</serviceModel>
