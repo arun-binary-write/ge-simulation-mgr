@@ -7,7 +7,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5C84F1A6-8ED7-4DB8-B217-0911F5AC5BD8}</ProjectGuid>
+    <ProjectGuid>{DC706C9F-E0B1-4678-A741-CC5267423F00}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -53,6 +53,7 @@
       <HintPath>..\packages\WindowsAzure.Storage.1.7.0.0\lib\net35-full\Microsoft.WindowsAzure.StorageClient.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.ServiceModel.Activation" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -73,22 +74,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AzureLocalStorageTraceListener.cs" />
-    <Compile Include="Contracts\Experiment.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="ISimulationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SimulationService.svc.cs">
-      <DependentUpon>SimulationService.svc</DependentUpon>
-    </Compile>
+    <Compile Include="SimulationService.cs" />
     <Compile Include="WebRole.cs" />
+    <Compile Include="Experiment.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Global.asax" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SimulationService.svc" />
     <Content Include="Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -96,6 +98,12 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimulationManager.Data\SimulationManager.Data.csproj">
+      <Project>{5fe01576-fba2-4a19-9601-0f3a64a24ddc}</Project>
+      <Name>SimulationManager.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

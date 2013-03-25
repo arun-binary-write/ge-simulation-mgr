@@ -3,22 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Web;
-using System.Web;
+using System.Text;
 
 namespace SimulationManager.Service
-{
+{    
+    [ServiceContract]
     public interface ISimulationService
     {
         [OperationContract]
-        [WebInvoke(Method = "POST", UriTemplate = "/{projectId}/{repeatCount}/{experimentId}")]
-        string RunExperiment(string projectId, string repeatCount, string experimentId);
+        [WebInvoke(Method = "GET", UriTemplate = "/runexperiment/{runid}/{projectId}/{noofreps}/{connectionstring}/{replication}", ResponseFormat = WebMessageFormat.Json)]
+        bool RunExperiment(string runid,string projectId,string noofreps,string connectionstring,string replication);
 
         [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "/{workerId}/{status}")]
-        Experiment GetWork(string workerId, string status);
-
-        [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "/{msgCount}")]
-        void LoadupQueue(string msgCount);
-    }
+        [WebInvoke(Method = "GET", UriTemplate = "/getwork/workerid/status", ResponseFormat = WebMessageFormat.Json)]
+        Experiment GetWork(string workerid, string status);
+}
 }

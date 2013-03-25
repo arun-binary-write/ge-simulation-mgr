@@ -39,7 +39,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SimulationManager.Service\SimulationManager.Service.csproj">
       <Name>SimulationManager.Service</Name>
-      <Project>{5c84f1a6-8ed7-4db8-b217-0911f5ac5bd8}</Project>
+      <Project>{dc706c9f-e0b1-4678-a741-cc5267423f00}</Project>
       <Private>True</Private>
       <RoleType>Web</RoleType>
       <RoleName>SimulationManager.Service</RoleName>

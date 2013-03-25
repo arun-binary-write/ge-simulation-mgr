@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="gesimcontrolModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="gesimcontrolModelStoreContainer">
+          <EntitySet Name="Experiment" EntityType="gesimcontrolModel.Store.Experiment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Project" EntityType="gesimcontrolModel.Store.Project" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Run" EntityType="gesimcontrolModel.Store.Run" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Simulation" EntityType="gesimcontrolModel.Store.Simulation" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Worker" EntityType="gesimcontrolModel.Store.Worker" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="Experiment">
+          <Key>
+            <PropertyRef Name="ExpID" />
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ExpID" Type="int" Nullable="false" />
+          <Property Name="IsComplete" Type="bit" />
+          <Property Name="ProjectID" Type="int" Nullable="false" />
+          <Property Name="NumOfRuns" Type="int" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="int" Nullable="false" />
+          <Property Name="ConnectionString" Type="char" MaxLength="256" />
+          <Property Name="ArchiveURI" Type="char" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="Run">
+          <Key>
+            <PropertyRef Name="RunID" />
+          </Key>
+          <Property Name="RunID" Type="int" Nullable="false" />
+          <Property Name="ExpId" Type="int" />
+          <Property Name="WorkerID" Type="int" />
+        </EntityType>
+        <EntityType Name="Simulation">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="RunID" Type="int" />
+          <Property Name="WorkerID" Type="int" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Repitition" Type="int" />
+          <Property Name="SimulationId" Type="varchar" MaxLength="64" />
+          <Property Name="rowid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Worker">
+          <Key>
+            <PropertyRef Name="WorkerID" />
+          </Key>
+          <Property Name="WorkerID" Type="int" Nullable="false" />
+          <Property Name="SimulationID" Type="int" />
+          <Property Name="Status" Type="int" />
+          <Property Name="StatusTimeStamp" Type="int" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="gesimcontrolModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="gesimcontrolEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Experiments" EntityType="gesimcontrolModel.Experiment" />
+          <EntitySet Name="Projects" EntityType="gesimcontrolModel.Project" />
+          <EntitySet Name="Runs" EntityType="gesimcontrolModel.Run" />
+          <EntitySet Name="Workers" EntityType="gesimcontrolModel.Worker" />
+          <EntitySet Name="Simulations" EntityType="gesimcontrolModel.Simulation" />
+        </EntityContainer>
+        <EntityType Name="Experiment">
+          <Key>
+            <PropertyRef Name="ExpID" />
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ExpID" Type="Int32" Nullable="false" />
+          <Property Name="IsComplete" Type="Boolean" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="NumOfRuns" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="ConnectionString" Type="String" MaxLength="256" Unicode="false" FixedLength="true" />
+          <Property Name="ArchiveURI" Type="String" MaxLength="256" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="Run">
+          <Key>
+            <PropertyRef Name="RunID" />
+          </Key>
+          <Property Name="RunID" Type="Int32" Nullable="false" />
+          <Property Name="ExpId" Type="Int32" />
+          <Property Name="WorkerID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Worker">
+          <Key>
+            <PropertyRef Name="WorkerID" />
+          </Key>
+          <Property Name="WorkerID" Type="Int32" Nullable="false" />
+          <Property Name="SimulationID" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="StatusTimeStamp" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Simulation">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Type="Int32" Name="RunID" />
+          <Property Type="Int32" Name="WorkerID" />
+          <Property Type="Int32" Name="Status" />
+          <Property Type="Int32" Name="Repitition" />
+          <Property Type="String" Name="SimulationId" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="rowid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="gesimcontrolModelStoreContainer" CdmEntityContainer="gesimcontrolEntities1">
+          <EntitySetMapping Name="Experiments">
+            <EntityTypeMapping TypeName="gesimcontrolModel.Experiment">
+              <MappingFragment StoreEntitySet="Experiment">
+                <ScalarProperty Name="ExpID" ColumnName="ExpID" />
+                <ScalarProperty Name="IsComplete" ColumnName="IsComplete" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="NumOfRuns" ColumnName="NumOfRuns" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="gesimcontrolModel.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ConnectionString" ColumnName="ConnectionString" />
+                <ScalarProperty Name="ArchiveURI" ColumnName="ArchiveURI" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Runs">
+            <EntityTypeMapping TypeName="gesimcontrolModel.Run">
+              <MappingFragment StoreEntitySet="Run">
+                <ScalarProperty Name="RunID" ColumnName="RunID" />
+                <ScalarProperty Name="ExpId" ColumnName="ExpId" />
+                <ScalarProperty Name="WorkerID" ColumnName="WorkerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Workers">
+            <EntityTypeMapping TypeName="gesimcontrolModel.Worker">
+              <MappingFragment StoreEntitySet="Worker">
+                <ScalarProperty Name="WorkerID" ColumnName="WorkerID" />
+                <ScalarProperty Name="SimulationID" ColumnName="SimulationID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="StatusTimeStamp" ColumnName="StatusTimeStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Simulations">
+            <EntityTypeMapping TypeName="gesimcontrolModel.Simulation">
+              <MappingFragment StoreEntitySet="Simulation">
+                <ScalarProperty Name="rowid" ColumnName="rowid" />
+                <ScalarProperty Name="SimulationId" ColumnName="SimulationId" />
+                <ScalarProperty Name="Repitition" ColumnName="Repitition" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="WorkerID" ColumnName="WorkerID" />
+                <ScalarProperty Name="RunID" ColumnName="RunID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
