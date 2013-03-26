@@ -11,11 +11,11 @@ namespace SimulationManager.Service
     public interface ISimulationService
     {
         [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "/runexperiment/{runid}/{projectId}/{noofreps}/{connectionstring}/{replication}", ResponseFormat = WebMessageFormat.Json)]
-        bool RunExperiment(string runid,string projectId,string noofreps,string connectionstring,string replication);
+        [WebInvoke(Method = "GET", UriTemplate = "/runexperiment/{experimentid}/{projectId}/{noofreps}/{connectionstring}/{replication}", ResponseFormat = WebMessageFormat.Json)]
+        bool RunExperiment(string experimentid,string projectId,string noofreps,string connectionstring,string replication);
 
         [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "/getwork/workerid/status", ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "GET", UriTemplate = "/getwork/{workerid}/{status}", ResponseFormat = WebMessageFormat.Json)]
         Experiment GetWork(string workerid, string status);
 }
 }

@@ -14,8 +14,15 @@ namespace SimulationManager.Data
     
     public partial class Project
     {
+        public Project()
+        {
+            this.Simulations = new HashSet<Simulation>();
+        }
+    
         public int ProjectID { get; set; }
         public string ConnectionString { get; set; }
         public string ArchiveURI { get; set; }
+    
+        public virtual ICollection<Simulation> Simulations { get; set; }
     }
 }

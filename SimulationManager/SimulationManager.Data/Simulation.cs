@@ -14,11 +14,14 @@ namespace SimulationManager.Data
     
     public partial class Simulation
     {
-        public Nullable<int> RunID { get; set; }
-        public Nullable<int> WorkerID { get; set; }
-        public Nullable<int> Status { get; set; }
+        public Nullable<long> RunID { get; set; }
+        public string WorkerID { get; set; }
+        public string Status { get; set; }
         public Nullable<int> Repitition { get; set; }
         public string SimulationId { get; set; }
         public int rowid { get; set; }
+        public Nullable<int> projectId { get; set; }
+    
+        public virtual Project Project { get; set; }
     }
 }

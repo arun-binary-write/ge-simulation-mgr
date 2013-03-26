@@ -28,7 +28,7 @@ namespace SimulationManager.Data
         public DbSet<Experiment> Experiments { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Run> Runs { get; set; }
-        public DbSet<Worker> Workers { get; set; }
         public DbSet<Simulation> Simulations { get; set; }
+        public DbSet<Worker> Workers { get; set; }
     }
 }

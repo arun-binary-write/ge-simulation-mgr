@@ -14,9 +14,9 @@ namespace SimulationManager.Data
     
     public partial class Worker
     {
-        public int WorkerID { get; set; }
-        public Nullable<int> SimulationID { get; set; }
-        public Nullable<int> Status { get; set; }
+        public string SimulationID { get; set; }
+        public string Status { get; set; }
         public Nullable<int> StatusTimeStamp { get; set; }
+        public string WorkerId { get; set; }
     }
 }

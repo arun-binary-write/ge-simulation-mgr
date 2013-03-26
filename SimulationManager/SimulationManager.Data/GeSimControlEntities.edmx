@@ -11,6 +11,10 @@
           <EntitySet Name="Run" EntityType="gesimcontrolModel.Store.Run" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Simulation" EntityType="gesimcontrolModel.Store.Simulation" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Worker" EntityType="gesimcontrolModel.Store.Worker" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="fk_projectid" Association="gesimcontrolModel.Store.fk_projectid">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Simulation" EntitySet="Simulation" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Experiment">
           <Key>
@@ -42,22 +46,35 @@
           <Key>
             <PropertyRef Name="rowid" />
           </Key>
-          <Property Name="RunID" Type="int" />
-          <Property Name="WorkerID" Type="int" />
-          <Property Name="Status" Type="int" />
+          <Property Name="RunID" Type="numeric" Precision="32" />
+          <Property Name="WorkerID" Type="varchar" MaxLength="32" />
+          <Property Name="Status" Type="varchar" MaxLength="32" />
           <Property Name="Repitition" Type="int" />
           <Property Name="SimulationId" Type="varchar" MaxLength="64" />
           <Property Name="rowid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="projectId" Type="int" />
         </EntityType>
         <EntityType Name="Worker">
           <Key>
-            <PropertyRef Name="WorkerID" />
+            <PropertyRef Name="WorkerId" />
           </Key>
-          <Property Name="WorkerID" Type="int" Nullable="false" />
-          <Property Name="SimulationID" Type="int" />
-          <Property Name="Status" Type="int" />
+          <Property Name="SimulationID" Type="varchar" MaxLength="64" />
+          <Property Name="Status" Type="varchar" MaxLength="16" />
           <Property Name="StatusTimeStamp" Type="int" />
+          <Property Name="WorkerId" Type="varchar" Nullable="false" MaxLength="16" />
         </EntityType>
+        <Association Name="fk_projectid">
+          <End Role="Project" Type="gesimcontrolModel.Store.Project" Multiplicity="0..1" />
+          <End Role="Simulation" Type="gesimcontrolModel.Store.Simulation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Simulation">
+              <PropertyRef Name="projectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -66,8 +83,12 @@
           <EntitySet Name="Experiments" EntityType="gesimcontrolModel.Experiment" />
           <EntitySet Name="Projects" EntityType="gesimcontrolModel.Project" />
           <EntitySet Name="Runs" EntityType="gesimcontrolModel.Run" />
-          <EntitySet Name="Workers" EntityType="gesimcontrolModel.Worker" />
           <EntitySet Name="Simulations" EntityType="gesimcontrolModel.Simulation" />
+          <AssociationSet Name="fk_projectid" Association="gesimcontrolModel.fk_projectid">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="Simulation" EntitySet="Simulations" />
+          </AssociationSet>
+          <EntitySet Name="Workers" EntityType="gesimcontrolModel.Worker" />
         </EntityContainer>
         <EntityType Name="Experiment">
           <Key>
@@ -86,6 +107,7 @@
           <Property Name="ProjectID" Type="Int32" Nullable="false" />
           <Property Name="ConnectionString" Type="String" MaxLength="256" Unicode="false" FixedLength="true" />
           <Property Name="ArchiveURI" Type="String" MaxLength="256" Unicode="false" FixedLength="true" />
+          <NavigationProperty Name="Simulations" Relationship="gesimcontrolModel.fk_projectid" FromRole="Project" ToRole="Simulation" />
         </EntityType>
         <EntityType Name="Run">
           <Key>
@@ -95,25 +117,39 @@
           <Property Name="ExpId" Type="Int32" />
           <Property Name="WorkerID" Type="Int32" />
         </EntityType>
-        <EntityType Name="Worker">
-          <Key>
-            <PropertyRef Name="WorkerID" />
-          </Key>
-          <Property Name="WorkerID" Type="Int32" Nullable="false" />
-          <Property Name="SimulationID" Type="Int32" />
-          <Property Name="Status" Type="Int32" />
-          <Property Name="StatusTimeStamp" Type="Int32" />
-        </EntityType>
         <EntityType Name="Simulation">
           <Key>
             <PropertyRef Name="rowid" />
           </Key>
-          <Property Type="Int32" Name="RunID" />
-          <Property Type="Int32" Name="WorkerID" />
-          <Property Type="Int32" Name="Status" />
+          <Property Type="Int64" Name="RunID" />
+          <Property Type="String" Name="WorkerID" />
+          <Property Type="String" Name="Status" MaxLength="32" Unicode="false" FixedLength="false" />
           <Property Type="Int32" Name="Repitition" />
           <Property Type="String" Name="SimulationId" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="rowid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="projectId" />
+          <NavigationProperty Name="Project" Relationship="gesimcontrolModel.fk_projectid" FromRole="Simulation" ToRole="Project" />
+        </EntityType>
+        <Association Name="fk_projectid">
+          <End Type="gesimcontrolModel.Project" Role="Project" Multiplicity="0..1" />
+          <End Type="gesimcontrolModel.Simulation" Role="Simulation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Simulation">
+              <PropertyRef Name="projectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Worker">
+          <Key>
+            <PropertyRef Name="WorkerId" />
+          </Key>
+          <Property Type="String" Name="SimulationID" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Status" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="StatusTimeStamp" />
+          <Property Type="String" Name="WorkerId" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -149,25 +185,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Workers">
-            <EntityTypeMapping TypeName="gesimcontrolModel.Worker">
-              <MappingFragment StoreEntitySet="Worker">
-                <ScalarProperty Name="WorkerID" ColumnName="WorkerID" />
-                <ScalarProperty Name="SimulationID" ColumnName="SimulationID" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="StatusTimeStamp" ColumnName="StatusTimeStamp" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Simulations">
             <EntityTypeMapping TypeName="gesimcontrolModel.Simulation">
               <MappingFragment StoreEntitySet="Simulation">
+                <ScalarProperty Name="projectId" ColumnName="projectId" />
                 <ScalarProperty Name="rowid" ColumnName="rowid" />
                 <ScalarProperty Name="SimulationId" ColumnName="SimulationId" />
                 <ScalarProperty Name="Repitition" ColumnName="Repitition" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="WorkerID" ColumnName="WorkerID" />
                 <ScalarProperty Name="RunID" ColumnName="RunID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Workers">
+            <EntityTypeMapping TypeName="gesimcontrolModel.Worker">
+              <MappingFragment StoreEntitySet="Worker">
+                <ScalarProperty Name="WorkerId" ColumnName="WorkerId" />
+                <ScalarProperty Name="StatusTimeStamp" ColumnName="StatusTimeStamp" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="SimulationID" ColumnName="SimulationID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

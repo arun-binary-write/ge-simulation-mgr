@@ -8,8 +8,9 @@
         <EntityTypeShape EntityType="gesimcontrolModel.Experiment" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="gesimcontrolModel.Project" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="gesimcontrolModel.Run" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="gesimcontrolModel.Worker" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="gesimcontrolModel.Simulation" Width="1.5" PointX="8.26024703134794" PointY="22.277828063013882" />
+        <AssociationConnector Association="gesimcontrolModel.fk_projectid" />
+        <EntityTypeShape EntityType="gesimcontrolModel.Worker" Width="1.5" PointX="2.5015297841753483" PointY="4.3289678265941181" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
