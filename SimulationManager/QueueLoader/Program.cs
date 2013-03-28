@@ -26,10 +26,10 @@ namespace QueueLoader
                 queue.AddMessage(new CloudQueueMessage("sample" + DateTime.UtcNow.Ticks), TimeSpan.FromMinutes(10));
                 Thread.Sleep(1000);
 
-                if (stopwatch.Elapsed.Minutes > 10)
-                {
-                    break;
-                }
+                //if (stopwatch.Elapsed.Minutes > 10)
+                //{
+                //    break;
+                //}
             }
                 
         }

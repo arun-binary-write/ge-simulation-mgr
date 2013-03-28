@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading;
+using System.Xml.Linq;
 using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
 using Microsoft.Practices.EnterpriseLibrary.WindowsAzure.Autoscaling;
 using Microsoft.WindowsAzure;
@@ -25,8 +26,13 @@ namespace SimulationManager.Worker
 
             while (true)
             {
-                Thread.Sleep(10000);
+                int existingInstanceCount = 0;
+
+
+               var trackindgId= ServiceManagementApiHelper.SetRoleInstanceCount(2, true, "geexpmgr", "788d90bb-b1d5-44eb-a335-aa8569d69bc6");
+
                 Trace.WriteLine("Working", "Information");
+                Thread.Sleep(10000);
             }
         }
 

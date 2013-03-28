@@ -8,7 +8,7 @@
 		</rule>
 	</constraintRules>	
 	<reactiveRules>			
-		<rule name="add worker role instance" rank="2" enabled="true">
+		<rule name="add worker role instance" rank="1" enabled="true">
 			<when>
 				<greater than="2" operand ="poolqueue" />
 			</when>
