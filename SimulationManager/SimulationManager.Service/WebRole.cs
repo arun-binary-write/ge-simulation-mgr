@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Diagnostics;
 using Microsoft.WindowsAzure.ServiceRuntime;
+using SimulationManager.Data;
 
 namespace SimulationManager.Service
 {
@@ -16,9 +17,13 @@ namespace SimulationManager.Service
             diagnosticConfig.Directories.ScheduledTransferPeriod = TimeSpan.FromMinutes(1);
             diagnosticConfig.Directories.DataSources.Add(AzureLocalStorageTraceListener.GetLogDirectory());
 
+            diagnosticConfig.Logs.ScheduledTransferPeriod = TimeSpan.FromMinutes(2);
+            diagnosticConfig.Logs.ScheduledTransferLogLevelFilter = LogLevel.Verbose;
+            
             // For information on handling configuration changes
             // see the MSDN topic at http://go.microsoft.com/fwlink/?LinkId=166357.
-
+            QueueManager queueManager = new QueueManager();
+            queueManager.CreateQueue();
             return base.OnStart();
         }
     }

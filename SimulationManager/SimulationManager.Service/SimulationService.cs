@@ -6,6 +6,7 @@ using System.ServiceModel.Activation;
 using System.ServiceModel.Web;
 using System.Web;
 using SimulationManager.Data;
+using SimulationManager.Data.Domain;
 
 namespace SimulationManager.Service
 {
@@ -18,6 +19,15 @@ namespace SimulationManager.Service
             {             
                 SMRepository repository = new SMRepository();
                 repository.AddExperiment(Int16.Parse(experimentid), Int16.Parse(projectId), Int16.Parse(noofreps), connectionstring, Int16.Parse(replication));
+                QueueManager queueManager = new QueueManager();
+
+                ScaleMessage message = new ScaleMessage()
+                {
+                    InstanceCount=Convert.ToInt32(replication)                    
+                };
+
+                queueManager.AddMessage(message);
+
                 return true;
             }
             catch (Exception ex)

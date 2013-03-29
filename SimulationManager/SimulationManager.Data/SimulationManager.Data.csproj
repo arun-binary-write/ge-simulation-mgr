@@ -33,6 +33,8 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -46,7 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlobManager.cs" />
     <Compile Include="Domain\ExperimentInfo.cs" />
+    <Compile Include="Domain\ScaleMessage.cs" />
     <Compile Include="Experiment.cs">
       <DependentUpon>GeSimControlEntities.tt</DependentUpon>
     </Compile>
@@ -69,6 +73,7 @@
       <DependentUpon>GeSimControlEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueueManager.cs" />
     <Compile Include="Run.cs">
       <DependentUpon>GeSimControlEntities.tt</DependentUpon>
     </Compile>

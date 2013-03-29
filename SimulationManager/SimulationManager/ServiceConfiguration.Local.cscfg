@@ -5,12 +5,20 @@
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
       <Setting name="queueconnectionstring" value="DefaultEndpointsProtocol=https;AccountName=gesimmanager;AccountKey=JbZJwq8akqXrgoyKAkwcMUYi9GKcs//QEr5HM0QXlLhAs3aknIUWr53PnAchwmrjpmQCCRq6nHEphVKf/tgY0Q==" />
+      <Setting name="queuename" value="scalequeue" />
+      <Setting name="distributor" value="scalingblob\lock.txt" />
+      <Setting name="eesubscriptionid" value="788d90bb-b1d5-44eb-a335-aa8569d69bc6" />
+      <Setting name="eeservicename" value="geexpmgr" />
+      <Setting name="eerolename" value="ExperimentManager.UI" />
     </ConfigurationSettings>
   </Role>
   <Role name="SimulationManager.Service">
     <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="queueconnectionstring" value="DefaultEndpointsProtocol=https;AccountName=gesimmanager;AccountKey=JbZJwq8akqXrgoyKAkwcMUYi9GKcs//QEr5HM0QXlLhAs3aknIUWr53PnAchwmrjpmQCCRq6nHEphVKf/tgY0Q==" />
+      <Setting name="queuename" value="scalequeue" />
+      <Setting name="distributor" value="scalingblob\lock.txt" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>

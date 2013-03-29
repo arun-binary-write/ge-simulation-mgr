@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Xml;
 using System.Xml.Schema;
@@ -8,57 +9,43 @@ using System.Xml.Serialization;
 
 namespace SimulationManager.Worker.Helper
 {
-    public class Deployment : IXmlSerializable
-    {
-        public Deployment() { }
-        public String DeploymentName { get; set; }
-        public Uri packageUri { get; set; }
-        public String Configuration { get; set; }
-        public String Label { get; set; }
+     
+    [DataContract(Namespace = Constants.ServiceManagementNS)]
+    public class Deployment : IExtensibleDataObject
+{
+    [DataMember(Order = 1, EmitDefaultValue = false)]
+        public string Name { get; set; }
 
-        public XmlSchema GetSchema()
-        {
-            return null;
-        }
+        [DataMember(Order = 2, EmitDefaultValue = false)]
+        public string DeploymentSlot { get; set; }
 
-        public void ReadXml(XmlReader xmlReader)
-        {
-            System.Text.ASCIIEncoding asciiEncoding = new System.Text.ASCIIEncoding();
+        [DataMember(Order = 3, EmitDefaultValue = false)]
+        public string PrivateID { get; set; }
 
-            xmlReader.ReadStartElement();
+        /// <summary>
+        /// The class DeploymentStatus defines its possible values. 
+        /// </summary>
+        [DataMember(Order = 4, EmitDefaultValue = false)]
+        public string Status { get; set; }
 
-            DeploymentName = xmlReader.ReadElementContentAsString();
-            String deploymentSlot = xmlReader.ReadElementContentAsString();
-            String privateId = xmlReader.ReadElementContentAsString();
+        [DataMember(Order = 5, EmitDefaultValue = false)]
+        public string Label { get; set; }
 
-            String status = xmlReader.ReadElementContentAsString();
+        [DataMember(Order = 6, EmitDefaultValue = false)]
+        public Uri Url { get; set; }
 
-            String base64Label = xmlReader.ReadElementContentAsString();
-            Byte[] labelData = System.Convert.FromBase64String(base64Label);
-            Label = asciiEncoding.GetString(labelData);
+        [DataMember(Order = 7, EmitDefaultValue = false)]
+        public string Configuration { get; set; }
 
-            String packageUriString = xmlReader.ReadElementContentAsString();
+        [DataMember(Order = 8, EmitDefaultValue = false)]
+        public RoleInstanceList RoleInstanceList { get; set; }
 
-            String base64Configuration =    xmlReader.ReadElementContentAsString();
-          //  Byte[] configurationData =System.Convert.FromBase64String(base64Configuration);
-            Configuration = base64Configuration;//asciiEncoding.GetString(configurationData);
-        }
+        [DataMember(Order = 10, EmitDefaultValue = false)]
+        public UpgradeStatus UpgradeStatus { get; set; }
 
-        public void WriteXml(XmlWriter xmlWriter)
-        {
-            Byte[] configurationBytes = System.Text.Encoding.UTF8.GetBytes(Configuration);
-            Byte[] labelBytes = System.Text.Encoding.UTF8.GetBytes(Label);
+        [DataMember(Order = 11, EmitDefaultValue = false)]
+        public int UpgradeDomainCount;
 
-            xmlWriter.WriteElementString("Name", DeploymentName);
-            xmlWriter.WriteElementString("PackageUrl",
-            packageUri.AbsoluteUri);
-            xmlWriter.WriteStartElement("Label");
-            xmlWriter.WriteBase64(labelBytes, 0, labelBytes.Count<Byte>());
-            xmlWriter.WriteEndElement();
-            xmlWriter.WriteStartElement("Configuration");
-            xmlWriter.WriteBase64(configurationBytes, 0,
-            configurationBytes.Count<Byte>());
-            xmlWriter.WriteEndElement();
-        }
-    }
+        public ExtensionDataObject ExtensionData { get; set; }
+}
 }

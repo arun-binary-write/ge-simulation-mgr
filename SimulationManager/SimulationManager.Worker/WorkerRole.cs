@@ -5,48 +5,59 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Xml.Linq;
-using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
-using Microsoft.Practices.EnterpriseLibrary.WindowsAzure.Autoscaling;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Diagnostics;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Microsoft.WindowsAzure.StorageClient;
+using SimulationManager.Data;
+using SimulationManager.Worker.Helper;
 
 
 namespace SimulationManager.Worker
 {
     public class WorkerRole : RoleEntryPoint
     {
-      //  RoleInstancesManager roleInstancesManager=null;
+        QueueManager queueManager;
+        string subscriptionId;
+        string serviceName;
+        string roleName;
 
         public override void Run()
         {
-            // This is a sample worker implementation. Replace with your logic.
-            Trace.WriteLine("SimulationManager.Worker entry point called", "Information");
-
             while (true)
             {
-                int existingInstanceCount = 0;
+                var message = queueManager.GetMessage();
 
-
-               var trackindgId= ServiceManagementApiHelper.SetRoleInstanceCount(2, true, "geexpmgr", "788d90bb-b1d5-44eb-a335-aa8569d69bc6");
-
+                if (message != null)
+                {
+                    var trackingId = ScalingApi.SetRoleInstanceCount(subscriptionId,serviceName,roleName, message.InstanceCount, message.IsReset);
+                    queueManager.DeleteMessage(message); 
+                    Operation operationStatus;
+                    do
+                    {                        
+                        Thread.Sleep(10000);
+                        operationStatus = ScalingApi.GetOperationStatus("788d90bb-b1d5-44eb-a335-aa8569d69bc6", trackingId);                        
+                    }
+                    while (operationStatus.Status == "InProgress");
+                    
+                }
                 Trace.WriteLine("Working", "Information");
-                Thread.Sleep(10000);
+
+                Thread.Sleep(TimeSpan.FromMinutes(5).Milliseconds);
             }
         }
 
         public override bool OnStart()
-        {
-            // Set the maximum number of concurrent connections 
+        {            
             ServicePointManager.DefaultConnectionLimit = 12;
+            
+             queueManager = new QueueManager();
+            queueManager.CreateQueue();
 
-            // For information on handling configuration changes
-            // see the MSDN topic at http://go.microsoft.com/fwlink/?LinkId=166357.
-            //roleInstancesManager = new RoleInstancesManager();
+            subscriptionId = RoleEnvironment.GetConfigurationSettingValue("eesubscriptionid");
+            serviceName = RoleEnvironment.GetConfigurationSettingValue("eeservicename");
+            roleName = RoleEnvironment.GetConfigurationSettingValue("eerolename");
 
-            var autoscaler = EnterpriseLibraryContainer.Current.GetInstance<Autoscaler>();
-            autoscaler.Start();
             return base.OnStart();
         }
     }
