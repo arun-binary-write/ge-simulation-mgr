@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="SimulationManager" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="3" osVersion="*" schemaVersion="2012-10.1.8">
+  <Role name="SimulationManager.Service">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=gesimmanager;AccountKey=JbZJwq8akqXrgoyKAkwcMUYi9GKcs//QEr5HM0QXlLhAs3aknIUWr53PnAchwmrjpmQCCRq6nHEphVKf/tgY0Q==" />
+      <Setting name="queueconnectionstring" value="DefaultEndpointsProtocol=https;AccountName=gesimmanager;AccountKey=JbZJwq8akqXrgoyKAkwcMUYi9GKcs//QEr5HM0QXlLhAs3aknIUWr53PnAchwmrjpmQCCRq6nHEphVKf/tgY0Q==" />
+      <Setting name="queuename" value="scalequeue" />
+    </ConfigurationSettings>
+  </Role>
+  <Role name="SimulationManager.Worker">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=gesimmanager;AccountKey=JbZJwq8akqXrgoyKAkwcMUYi9GKcs//QEr5HM0QXlLhAs3aknIUWr53PnAchwmrjpmQCCRq6nHEphVKf/tgY0Q==" />
+      <Setting name="queueconnectionstring" value="DefaultEndpointsProtocol=https;AccountName=gesimmanager;AccountKey=JbZJwq8akqXrgoyKAkwcMUYi9GKcs//QEr5HM0QXlLhAs3aknIUWr53PnAchwmrjpmQCCRq6nHEphVKf/tgY0Q==" />
+      <Setting name="queuename" value="scalequeue" />
+      <Setting name="eesubscriptionid" value="788d90bb-b1d5-44eb-a335-aa8569d69bc6" />
+      <Setting name="eeservicename" value="executionengine" />
+      <Setting name="eerolename" value="ExecutionEngine.Service" />
+    </ConfigurationSettings>
+  </Role>
+</ServiceConfiguration>

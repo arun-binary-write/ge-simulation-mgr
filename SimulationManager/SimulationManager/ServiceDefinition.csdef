@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceDefinition name="SimulationManager" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition" schemaVersion="2012-10.1.8">
+  <WebRole name="SimulationManager.Service" vmsize="Small">
+    <Sites>
+      <Site name="Web">
+        <Bindings>
+          <Binding name="Endpoint1" endpointName="Endpoint1" />
+        </Bindings>
+      </Site>
+    </Sites>
+    <Endpoints>
+      <InputEndpoint name="Endpoint1" protocol="http" port="80" />
+    </Endpoints>
+    <Imports>
+      <Import moduleName="Diagnostics" />
+    </Imports>
+    <LocalResources>
+      <LocalStorage name="SimulationManager.Service.svclog" sizeInMB="1000" cleanOnRoleRecycle="false" />
+    </LocalResources>
+    <ConfigurationSettings>
+      <Setting name="queueconnectionstring" />
+      <Setting name="queuename" />
+    </ConfigurationSettings>
+  </WebRole>
+  <WorkerRole name="SimulationManager.Worker" vmsize="Small">
+    <ConfigurationSettings>
+      <Setting name="queueconnectionstring" />
+      <Setting name="queuename" />
+      <Setting name="eesubscriptionid" />
+      <Setting name="eeservicename" />
+      <Setting name="eerolename" />
+    </ConfigurationSettings>
+    <Imports>
+      <Import moduleName="Diagnostics" />
+    </Imports>
+  </WorkerRole>
+</ServiceDefinition>
