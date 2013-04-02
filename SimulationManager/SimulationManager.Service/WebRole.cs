@@ -16,16 +16,15 @@ namespace SimulationManager.Service
 
             // For information on handling configuration changes
             // see the MSDN topic at http://go.microsoft.com/fwlink/?LinkId=166357.
-            string conString = RoleEnvironment.GetConfigurationSettingValue("Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString");
-            RoleInstanceDiagnosticManager diagmgr = new RoleInstanceDiagnosticManager(CloudStorageAccount.Parse(conString), RoleEnvironment.DeploymentId, RoleEnvironment.CurrentRoleInstance.Role.Name, RoleEnvironment.CurrentRoleInstance.Id);
 
-            var config = diagmgr.GetCurrentConfiguration();
-            config.Logs.ScheduledTransferLogLevelFilter = LogLevel.Verbose;
+            var config = DiagnosticMonitor.GetDefaultInitialConfiguration();
+
             config.Logs.ScheduledTransferPeriod = TimeSpan.FromMinutes(2);
+            config.Logs.ScheduledTransferLogLevelFilter = LogLevel.Information;
 
-            diagmgr.SetCurrentConfiguration(config);
+            DiagnosticMonitor.Start("Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString", config);         
 
-            
+
             return base.OnStart();
         }
     }

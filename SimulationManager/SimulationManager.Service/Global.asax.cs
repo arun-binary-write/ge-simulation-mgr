@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
+using Microsoft.WindowsAzure.Diagnostics;
 
 namespace SimulationManager.Service
 {
@@ -15,6 +16,7 @@ namespace SimulationManager.Service
         protected void Application_Start(object sender, EventArgs e)
         {
             RouteTable.Routes.Add(new ServiceRoute("SimulationService", new WebServiceHostFactory(), typeof(SimulationService)));
+        
         }
 
         protected void Session_Start(object sender, EventArgs e)

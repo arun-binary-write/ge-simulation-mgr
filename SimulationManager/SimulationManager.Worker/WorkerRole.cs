@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Diagnostics;
 using Microsoft.WindowsAzure.Diagnostics.Management;
@@ -23,8 +24,19 @@ namespace SimulationManager.Worker
 
         public override void Run()
         {
+            if (RoleEnvironment.CurrentRoleInstance.Id.EndsWith("0"))
+            {
+                var statusMonitorTask=Task.Factory.StartNew(() => 
+                {
+                    StatusMonitor statusMonitor = new StatusMonitor();
+                    statusMonitor.Run();
+                });
+                
+            }
+
             while (true)
             {
+
                 try
                 {
                     var message = queueManager.GetMessage();
